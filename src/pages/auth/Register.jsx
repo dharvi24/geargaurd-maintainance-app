@@ -15,6 +15,9 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const roles = ["user", "admin", "manager", "technician"]; // Hardcoded roles
+
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -82,10 +85,13 @@ const Register = () => {
           onChange={handleChange}
           style={styles.input}
         >
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
-          <option value="manager">Manager</option>
+          {roles.map((role) => (
+            <option key={role} value={role}>
+              {role.charAt(0).toUpperCase() + role.slice(1)}
+            </option>
+          ))}
         </select>
+
 
         <button type="submit" style={styles.button} disabled={loading}>
           {loading ? "Registering..." : "Register"}

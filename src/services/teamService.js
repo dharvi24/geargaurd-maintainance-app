@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://10.20.53.148:8000/api",
+  baseURL: "http://10.165.80.98:8000/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -53,10 +53,29 @@ export const createTeam = async (teamData) => {
   return res.data;
 };
 
-// ✅ ADD TECHNICIAN (PATCH)
+/// ✅ Add technician to team
 export const addTechnicianToTeam = async (teamId, technicianId) => {
-  const res = await api.patch(`/teams/${teamId}/add-member`, {
-    technicianId,
-  });
-  return res.data;
+  try {
+    const res = await api.patch(`/teams/${teamId}/add-member`, {
+      technicianId, // backend expects this field
+    });
+
+    return res.data;
+  } catch (error) {
+    if (error.response) {
+      if (error.response.status === 403) {
+        throw new Error(
+          "You do not have permission to add a member to this team."
+        );
+      }
+      throw new Error(
+        `Request failed: ${error.response.status} ${error.response.statusText}`
+      );
+    } else if (error.request) {
+      throw new Error("No response from server. Please check your network.");
+    } else {
+      throw new Error(`Error: ${error.message}`);
+    }
+  }
 };
+
