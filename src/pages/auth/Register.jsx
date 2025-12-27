@@ -11,16 +11,12 @@ const Register = () => {
     password: "",
     role: "user", // default role
   });
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const roles = ["user", "admin", "manager", "technician"]; // Hardcoded roles
+  const roles = ["user", "admin", "manager", "technician"];
 
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,12 +25,9 @@ const Register = () => {
 
     try {
       const data = await registerUser(form);
-
-      // Store token (optional, since backend returns token)
       localStorage.setItem("token", data.token);
-
       alert("Registration successful!");
-      navigate("/dashboard"); // or /login if you prefer
+      navigate("/dashboard");
     } catch (err) {
       setError(err.message || "Registration failed");
     } finally {
@@ -43,101 +36,138 @@ const Register = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <h2>Create Account</h2>
+    <div style={styles.page}>
+      <div style={styles.shell}>
+        <h2 style={styles.title}>Create Account</h2>
+        <p style={styles.subtitle}>Fill in your details to register a new account.</p>
 
-      {error && <p style={styles.error}>{error}</p>}
+        {error && <p style={styles.error}>{error}</p>}
 
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Full Name"
-          value={form.name}
-          onChange={handleChange}
-          style={styles.input}
-          required
-        />
+        <form onSubmit={handleSubmit} style={styles.form}>
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            value={form.name}
+            onChange={handleChange}
+            required
+            style={styles.input}
+          />
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-          style={styles.input}
-          required
-        />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+            required
+            style={styles.input}
+          />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={handleChange}
-          style={styles.input}
-          required
-        />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            required
+            style={styles.input}
+          />
 
-        <select
-          name="role"
-          value={form.role}
-          onChange={handleChange}
-          style={styles.input}
-        >
-          {roles.map((role) => (
-            <option key={role} value={role}>
-              {role.charAt(0).toUpperCase() + role.slice(1)}
-            </option>
-          ))}
-        </select>
+          <select
+            name="role"
+            value={form.role}
+            onChange={handleChange}
+            style={styles.input}
+          >
+            {roles.map((role) => (
+              <option key={role} value={role}>
+                {role.charAt(0).toUpperCase() + role.slice(1)}
+              </option>
+            ))}
+          </select>
 
+          <button type="submit" style={styles.button} disabled={loading}>
+            {loading ? "Registering..." : "Register"}
+          </button>
+        </form>
 
-        <button type="submit" style={styles.button} disabled={loading}>
-          {loading ? "Registering..." : "Register"}
-        </button>
-      </form>
-
-      <p>
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
+        <p style={styles.loginText}>
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
+      </div>
     </div>
   );
 };
 
 const styles = {
-  container: {
-    width: "350px",
-    margin: "80px auto",
-    padding: "25px",
-    border: "1px solid #ddd",
-    borderRadius: "10px",
+  page: {
+    minHeight: "100vh",
+    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    padding: "24px",
+    boxSizing: "border-box",
+  },
+  shell: {
+    width: "100%",
+    maxWidth: "400px",
+    background: "rgba(255,255,255,0.92)",
+    backdropFilter: "blur(16px)",
+    borderRadius: "24px",
+    padding: "32px 28px",
+    boxShadow: "0 18px 40px rgba(15,23,42,0.25)",
+    border: "1px solid rgba(255,255,255,0.6)",
     textAlign: "center",
-    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+  },
+  title: {
+    fontSize: "28px",
+    fontWeight: 700,
+    margin: 0,
+    background: "linear-gradient(135deg, #667eea 0%, #22c55e 100%)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    backgroundClip: "text",
+  },
+  subtitle: {
+    margin: "8px 0 20px",
+    fontSize: "13px",
+    color: "#64748b",
+  },
+  error: {
+    color: "red",
+    marginBottom: "12px",
+    fontSize: "14px",
   },
   form: {
     display: "flex",
     flexDirection: "column",
-    gap: "12px",
+    gap: "14px",
   },
   input: {
-    padding: "10px",
-    fontSize: "15px",
-    borderRadius: "5px",
-    border: "1px solid #ccc",
+    padding: "10px 14px",
+    borderRadius: "12px",
+    border: "1px solid #e5e7eb",
+    fontSize: "14px",
   },
   button: {
-    padding: "12px",
-    background: "#10b981",
-    color: "#fff",
+    padding: "10px 16px",
+    borderRadius: "999px",
     border: "none",
-    borderRadius: "6px",
+    background: "linear-gradient(135deg, #22c55e 0%, #16a34a 100%)",
+    color: "#fff",
+    fontSize: "14px",
+    fontWeight: 600,
     cursor: "pointer",
-    fontSize: "16px",
+    boxShadow: "0 10px 20px rgba(22,163,74,0.35)",
+    marginTop: "10px",
   },
-  error: {
-    color: "red",
-    marginBottom: "10px",
+  loginText: {
+    marginTop: "16px",
+    fontSize: "13px",
+    color: "#64748b",
   },
 };
 
