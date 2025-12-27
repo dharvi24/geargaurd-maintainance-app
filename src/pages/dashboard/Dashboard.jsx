@@ -7,7 +7,7 @@ const Dashboard = () => {
 
   // Tabs with routes
   const topTabs = [
-    { label: "Maintenance", path: "/maintenance" },
+    { label: "Maintenance", path: "/maintenance-requests" },
     { label: "Dashboard", path: "/dashboard" },
     { label: "Maintenance Calendar", path: "/maintenance-calendar" },
     { label: "Equipment", path: "/equipment" },

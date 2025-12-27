@@ -8,6 +8,7 @@ import TeamDetails from "./pages/teams/TeamDetails";
 import EquipmentList from "./pages/equipment/EquipmentList";
 import AddEquipment from "./pages/equipment/AddEquipment";
 import EquipmentDetails from "./pages/equipment/EquipmentDetails";
+import CreateRequest from "./pages/requests/CreateRequest";
 
 
 
@@ -25,6 +26,8 @@ const AppRoutes = () => {
       <Route path="/equipment" element={<EquipmentList />} />
       <Route path="/equipment/add" element={<AddEquipment />} />
       <Route path="/equipment/:id" element={<EquipmentDetails />} />
+      <Route path="/maintenance-requests" element={<CreateRequest />} />
+
     </Routes>
   );
 };
