@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +69,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+=======
+# geargaurd-maintainance-app
+This is a odoo hackathon repository. The team members are : 
+Vanita Kambariya
+Siddhi Gaudani
+Disha Kamani
+Dharvi Adthakkar
+>>>>>>> bf08b981995df092ab051a74bacbfd623ed43985
